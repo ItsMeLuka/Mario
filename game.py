@@ -1,6 +1,6 @@
 import pygame
 import math
-from pygame import Surface, mixer
+from pygame import mixer
 
 # Initialize the game
 pygame.init()
