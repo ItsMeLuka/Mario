@@ -11,7 +11,7 @@ screen = pygame.display.set_mode((1820, 980))
 # Background
 background = pygame.image.load('background.png')
 
-#Mario
+# Mario
 mario = pygame.image.load('mario.png')
 marioX = 20
 marioY = 730
@@ -20,6 +20,9 @@ marioY_change = 0
 
 # Brick
 brick = pygame.image.load('brick.png')
+
+#Physics   
+
 # Game Loop
 running = True
 while running:
@@ -46,7 +49,7 @@ while running:
                 marioX_change = -10
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
-                marioX_change = 0        
+                marioX_change = 0
             if event.key == pygame.K_UP:
                 marioY_change = 0
 
