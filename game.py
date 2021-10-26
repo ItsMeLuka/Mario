@@ -14,12 +14,30 @@ background = pygame.image.load('background.png')
 # Mario
 mario = pygame.image.load('mario.png')
 marioX = 20
-marioY = 730
+marioY = 728
 marioX_change = 0
 marioY_change = 0
 
 # Brick
 brick = pygame.image.load('brick.png')
+
+#Block
+block = pygame.image.load('block.png')
+blockX = 300
+blockY = 680
+def isContactdown(marioX, marioY, blockX, blockY):
+    distance = math.sqrt(math.pow(blockX - marioX, 2) + (math.pow(blockY - marioY, 2)))
+    if distance < 27:
+        return True
+    else:
+        return False    
+
+def isContactup(mariox, marioY, blockX, blockY):
+    distance = math.sqrt(math.pow(blockX - marioX, 2) + (math.pow(blockY - marioY, 2)))
+    if distance < 27:
+        return True
+    else:
+        return False    
 
 # Physics
 gravity = 0.4
@@ -35,6 +53,23 @@ while running:
     for i in range(num_of_bricks):
         x += 20
         screen.blit(brick, (x, 780))
+
+    num_of_blocks = 12
+    blockX = 300
+    for i in range(num_of_blocks):
+        blockX += 20
+        blocks = screen.blit(block, (blockX, blockY))
+        contactdown = isContactdown(marioX, marioY, blockX, blockY)
+        if contactdown:
+            marioY_change = 0      
+        contactup = isContactup(marioX, marioY, blockX, blockY - 28)
+        if contactup:
+            marioY_change = 0
+            marioY_change -= gravity
+    if marioX == 1820:
+        marioX = 20
+    if marioX == 0:
+        marioX = 20        
 
     screen.blit(mario, (marioX, marioY))
 
@@ -57,4 +92,5 @@ while running:
     marioX += marioX_change
     if marioY_change + marioY + mario.get_height() <= 780:
         marioY += marioY_change
+ 
     pygame.display.update()
