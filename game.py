@@ -21,7 +21,8 @@ marioY_change = 0
 # Brick
 brick = pygame.image.load('brick.png')
 
-#Physics   
+# Physics
+gravity = 0.4
 
 # Game Loop
 running = True
@@ -37,12 +38,14 @@ while running:
 
     screen.blit(mario, (marioX, marioY))
 
+    marioY_change += gravity
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                marioY_change = 10
+                marioY_change = -10
             if event.key == pygame.K_RIGHT:
                 marioX_change = 10
             if event.key == pygame.K_LEFT:
@@ -50,9 +53,8 @@ while running:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
                 marioX_change = 0
-            if event.key == pygame.K_UP:
-                marioY_change = 0
 
     marioX += marioX_change
-    marioY -= marioY_change
+    if marioY_change + marioY + mario.get_height() <= 780:
+        marioY += marioY_change
     pygame.display.update()
